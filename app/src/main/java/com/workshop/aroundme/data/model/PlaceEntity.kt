@@ -1,5 +1,7 @@
 package com.workshop.aroundme.data.model
 
+import android.graphics.Bitmap
+
 data class PlaceEntity(
     val name: String?,
     val address : String?,
@@ -11,13 +13,5 @@ data class PlaceEntity(
 data class Position(val latitude : String?, val longitude : String?);
 
 data class ImageSource(
-    val image: ImageSourceX?
-)
-
-data class ImageSourceX(
-    val card: String?,
-    val large: String?,
-    val medium: String?,
-    val small: String?,
-    val tiny: String?
+    val bitmap: Bitmap?
 )
