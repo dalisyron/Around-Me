@@ -1,11 +1,12 @@
 package com.workshop.aroundme.data
 
+import android.graphics.BitmapFactory
 import com.workshop.aroundme.data.model.ImageSource
-import com.workshop.aroundme.data.model.ImageSourceX
 import com.workshop.aroundme.data.model.PlaceEntity
 import com.workshop.aroundme.data.model.Position
 import com.workshop.aroundme.remote.datasource.PlaceDataSource
 import com.workshop.aroundme.remote.model.response.Image
+import java.net.URL
 
 class PlaceRepository(private val placeDataSource: PlaceDataSource) {
 
@@ -14,7 +15,8 @@ class PlaceRepository(private val placeDataSource: PlaceDataSource) {
             val result = placeDataSource.getFeaturedPlaces()?.map {
 
                 val images = it.images?.map {
-                    ImageSource(ImageSourceX(it?.image?.card?.url, it?.image?.large?.url, it?.image?.medium?.url, it?.image?.small?.url, it?.image?.tiny?.url))
+                    val url = URL(it?.image?.tiny?.url)
+                    ImageSource(BitmapFactory.decodeStream(url.openConnection().getInputStream()))
                 }
 
                 val position : Position? = Position(it.lat, it.lng)

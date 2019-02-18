@@ -1,22 +1,32 @@
 package com.workshop.aroundme.app.ui.home
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.workshop.aroundme.R
+import com.workshop.aroundme.app.DisplayInfoActivity
 import com.workshop.aroundme.data.PlaceRepository
 import com.workshop.aroundme.data.model.PlaceEntity
 import com.workshop.aroundme.remote.NetworkManager
 import com.workshop.aroundme.remote.datasource.PlaceDataSource
 import com.workshop.aroundme.remote.service.PlaceService
+import android.net.Uri
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), OnPlaceListItemClickListener {
+    override fun onItemClicked(place: PlaceEntity) {
+        val uriString = "geo:${place.position?.latitude},${place.position?.longitude}?q=${place.position?.latitude},${place.position?.longitude}(${place.name})"
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uriString))
+        startActivity(intent)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,9 +56,11 @@ class HomeFragment : Fragment() {
         activity?.runOnUiThread {
 
             val recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerView)
+            recyclerView?.addItemDecoration(DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL))
+
             val progressBar = view?.findViewById<ProgressBar>(R.id.loadingBar)
             progressBar?.visibility = View.GONE
-            recyclerView?.adapter = HomeAdapter(list ?: listOf())
+            recyclerView?.adapter = HomeAdapter(list ?: listOf(), this)
         }
     }
 }
