@@ -19,10 +19,12 @@ import com.workshop.aroundme.data.model.PlaceEntity
 import com.workshop.aroundme.remote.NetworkManager
 import com.workshop.aroundme.remote.datasource.PlaceDataSource
 import com.workshop.aroundme.remote.service.PlaceService
+import android.net.Uri
 
 class HomeFragment : Fragment(), OnPlaceListItemClickListener {
     override fun onItemClicked(place: PlaceEntity) {
-        val intent = Intent(this.activity, DisplayInfoActivity::class.java)
+        val uriString = "geo:${place.position?.latitude},${place.position?.longitude}?q=${place.position?.latitude},${place.position?.longitude}(${place.name})"
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uriString))
         startActivity(intent)
     }
 
