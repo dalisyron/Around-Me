@@ -15,7 +15,7 @@ class PlaceRepository(private val placeDataSource: PlaceDataSource) {
             val result = placeDataSource.getFeaturedPlaces()?.map {
 
                 val images = it.images?.map {
-                    val url = URL(it?.image?.card?.url)
+                    val url = URL(it?.image?.tiny?.url)
                     ImageSource(BitmapFactory.decodeStream(url.openConnection().getInputStream()))
                 }
 
