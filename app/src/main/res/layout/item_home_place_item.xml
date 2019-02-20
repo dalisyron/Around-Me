@@ -1,69 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:padding="16dp"
-              android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/item_home_item_padding">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="#ccc" />
+
+    <ImageView
+        android:id="@+id/favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_star_off" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/image"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:text="رستوران اردک آبی" />
+
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_toLeftOf="@id/image"
+        android:textSize="15sp"
+        tools:text="تهران، خیابان انقلاب نرسیده به میدان انقلاب " />
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layoutDirection="rtl"
-            android:orientation="horizontal">
+        android:id="@+id/likesContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/address">
 
-        <ImageView
-                android:id="@+id/image"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:src="@color/colorAccent"
-                android:layout_marginLeft="16dp"
-                android:contentDescription="Place Image"/>
-
-        <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="90dp"
-                android:orientation="vertical">
-
-            <TextView
-                    android:id="@+id/name"
-                    android:layout_width="match_parent"
-                    tools:text="نام مکان"
-                    android:textDirection="rtl"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    android:layout_height="wrap_content"/>
-
-            <TextView
-                    android:id="@+id/address"
-                    tools:text="آدرس مکان"
-                    android:textSize="13dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
+        <TextView
+            android:id="@+id/likes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-        <ImageView
-                android:id="@+id/likeCountImageView"
-                android:src="@drawable/heart_off"
-                android:layout_marginRight="6dp"
-                android:layout_width="18dp"
-                android:layout_height="18dp">
-        </ImageView>
-        <TextView
-                android:id="@+id/likeCountTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:text="{like_count}"
-                />
+            tools:text="23" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_like_on_vector" />
     </LinearLayout>
 
-</LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="#ddd" />
+
+</RelativeLayout>
