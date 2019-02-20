@@ -18,7 +18,7 @@ import com.workshop.aroundme.remote.NetworkManager
 import com.workshop.aroundme.remote.datasource.PlaceDataSource
 import com.workshop.aroundme.remote.service.PlaceService
 
-class SearchResultsFragment : HomeFragment() {
+class SearchResultsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,7 +38,6 @@ class SearchResultsFragment : HomeFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         val placeRepository = PlaceRepository(PlaceDataSource(PlaceService(NetworkManager())))
 
         val searchQuery = arguments?.getString(SEARCH_QUERY_KEY)?:""
