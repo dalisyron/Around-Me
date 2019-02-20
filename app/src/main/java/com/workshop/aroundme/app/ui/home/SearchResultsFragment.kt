@@ -43,10 +43,10 @@ class SearchResultsFragment : HomeFragment() {
 
         val searchQuery = arguments?.getString(SEARCH_QUERY_KEY)?:""
 
-        placeRepository.getSearchResultPlaces(searchQuery, ::onFeaturedPlacesReady)
+        placeRepository.getSearchResultPlaces(searchQuery, ::onSearchResultsReady)
     }
 
-    private fun onFeaturedPlacesReady(list: List<PlaceEntity>?) {
+    private fun onSearchResultsReady(list: List<PlaceEntity>?) {
         activity?.runOnUiThread {
             val recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerView)
             val progressBar = view?.findViewById<ProgressBar>(R.id.loadingBar)
