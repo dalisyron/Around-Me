@@ -1,41 +1,48 @@
 package com.workshop.aroundme.app.ui.home
 
-import android.media.Image
-import android.util.DisplayMetrics
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import com.workshop.aroundme.R
 import com.workshop.aroundme.data.model.PlaceEntity
-import android.graphics.BitmapFactory
-import android.graphics.Bitmap
-import android.os.AsyncTask
-import java.net.URL
 
 class HomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val nameTextView = itemView.findViewById<TextView>(R.id.name)
     private val addressTextView = itemView.findViewById<TextView>(R.id.address)
-    private val thumbnailImageView = itemView.findViewById<ImageView>(R.id.image)
-    private val likeCountTextView = itemView.findViewById<TextView>(R.id.likeCountTextView)
-    private val likeCountImageView = itemView.findViewById<ImageView>(R.id.likeCountImageView)
+    private val likesTextView = itemView.findViewById<TextView>(R.id.likes)
+    private val likesContainer = itemView.findViewById<View>(R.id.likesContainer)
+    private val image = itemView.findViewById<ImageView>(R.id.image)
+    private val favorite = itemView.findViewById<ImageView>(R.id.favorite)
 
-    fun bind(placeEntity: PlaceEntity, onPlaceListItemClickListener: OnPlaceListItemClickListener) {
+    fun bind(placeEntity: PlaceEntity) {
         nameTextView.text = placeEntity.name
         addressTextView.text = placeEntity.address
-        if (placeEntity.likeCount?:0 > 0) {
-            likeCountTextView.text = placeEntity.likeCount.toString()
-            likeCountImageView.visibility = View.VISIBLE
+        likesTextView.text = placeEntity.likes.toString()
+
+        Picasso.get().load(placeEntity.imageUrl).into(image)
+
+        likesContainer.visibility = if (placeEntity.likes != null && placeEntity.likes > 0) {
+            View.VISIBLE
         } else {
-            likeCountTextView.text = ""
-            likeCountImageView.visibility = View.GONE
+            View.GONE
         }
 
-        thumbnailImageView.setImageBitmap(placeEntity.images?.getOrNull(0)?.bitmap)
-        itemView.setOnClickListener {
-            onPlaceListItemClickListener.onItemClicked(placeEntity)
+        if (placeEntity.isFavorite) {
+            favorite.setImageResource(R.drawable.ic_star_on)
+        } else {
+            favorite.setImageResource(R.drawable.ic_star_off)
         }
 
+        favorite.setOnClickListener {
+            if (!placeEntity.isFavorite) {
+                favorite.setImageResource(R.drawable.ic_star_on)
+                placeEntity.isFavorite = true
+            } else {
+                favorite.setImageResource(R.drawable.ic_star_off)
+                placeEntity.isFavorite = false
+            }
+        }
     }
-
 }
