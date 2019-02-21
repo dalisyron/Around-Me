@@ -29,6 +29,6 @@ class ResultsActivity : AppCompatActivity() {
     fun setResultsInfo() {
         val resultsInfoTextView = findViewById<TextView>(R.id.resultsInfo)
         val searchQuery = intent.extras?.getString(SEARCH_QUERY_KEY)
-        resultsInfoTextView.text = "نتایج جستجو برای ${searchQuery}"
+        resultsInfoTextView.text = getString(R.string.show_results) + ' ' + searchQuery
     }
 }

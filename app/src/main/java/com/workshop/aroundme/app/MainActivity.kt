@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         const val SEARCH_QUERY_KEY = "searchQuery"
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

@@ -40,7 +40,7 @@ class SearchResultsFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         val placeRepository = PlaceRepository(PlaceDataSource(PlaceService(NetworkManager())))
 
-        val searchQuery = arguments?.getString(SEARCH_QUERY_KEY)?:""
+        val searchQuery = arguments?.getString(SEARCH_QUERY_KEY) ?: ""
 
         placeRepository.getSearchResultPlaces(searchQuery, ::onSearchResultsReady)
     }

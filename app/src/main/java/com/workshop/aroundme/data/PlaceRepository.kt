@@ -15,11 +15,11 @@ class PlaceRepository(private val placeDataSource: PlaceDataSource) {
         }.start()
     }
 
-    fun getSearchResultPlaces(searchQuery : String, success: (List<PlaceEntity>?) -> Unit) {
+    fun getSearchResultPlaces(searchQuery: String, success: (List<PlaceEntity>?) -> Unit) {
         Thread {
             var result = placeDataSource.getFeaturedPlaces()?.map { placeDto ->
                 placeDto.toPlaceEntity()
-            }?.filter { it.name?.contains(searchQuery)?:false }
+            }?.filter { it.name?.contains(searchQuery) ?: false }
             println(result)
             success(result)
         }.start()
