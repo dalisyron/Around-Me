@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.workshop.aroundme.R
@@ -31,6 +32,12 @@ class LoginFragment : Fragment() {
 
         val usernameEditText = view.findViewById<EditText>(R.id.username)
         val passwordEditText = view.findViewById<EditText>(R.id.password)
+
+        view.findViewById<View>(R.id.register).setOnClickListener {
+            fragmentManager?.beginTransaction()
+                ?.replace(R.id.content_frame, RegisterFragment())
+                ?.commit()
+        }
         view.findViewById<View>(R.id.login).setOnClickListener {
 
             if (usernameEditText.text.isNotEmpty() && usernameEditText.text.toString() == "reza"
@@ -39,11 +46,16 @@ class LoginFragment : Fragment() {
 
                 val userRepository = Injector.provideUserRepository(view.context)
                 val user = UserEntity(usernameEditText.text.toString())
-                userRepository.login(user)
+                val rememberFlag = view.findViewById<CheckBox>(R.id.rememberCheckBox).isChecked
+
+                if (rememberFlag) {
+                    userRepository.login(user)
+                }
 
                 fragmentManager?.beginTransaction()
                     ?.replace(R.id.content_frame, HomeFragment())
                     ?.commit()
+
             } else {
                 AlertDialog.Builder(view.context)
                     .setTitle(getString(R.string.error))

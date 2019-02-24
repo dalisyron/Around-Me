@@ -10,4 +10,6 @@
     <string name="error">Error</string>
     <string name="invalid_user_or_pass">Invalid username or password</string>
     <string name="ok">Ok</string>
+    <string name="newhere">First time here?</string>
+    <string name="register">Create you account.</string>
 </resources>

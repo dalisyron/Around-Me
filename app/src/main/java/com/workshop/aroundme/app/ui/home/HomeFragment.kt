@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.workshop.aroundme.R
 import com.workshop.aroundme.app.Injector
 import com.workshop.aroundme.app.ui.detail.DetailFragment
+import com.workshop.aroundme.app.ui.search.SearchResultsFragment
 import com.workshop.aroundme.data.model.PlaceEntity
 
 class HomeFragment : Fragment(), OnHomePlaceItemClickListener {
@@ -27,6 +31,14 @@ class HomeFragment : Fragment(), OnHomePlaceItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val searchBtn = view.findViewById<ImageButton>(R.id.searchImageButton)
+
+        searchBtn.setOnClickListener {
+            val searchEditText = view.findViewById<EditText>(R.id.searchQueryEditText)
+            val searchQuery = searchEditText.text.toString()
+            fragmentManager?.beginTransaction()?.replace(R.id.content_frame, SearchResultsFragment.newInstance(searchQuery))?.commit()
+        }
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(view.context)
