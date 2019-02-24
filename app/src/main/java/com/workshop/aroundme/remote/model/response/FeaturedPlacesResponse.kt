@@ -41,7 +41,7 @@ data class PlaceDto(
     val lng: String?,
     val my_checkins: Int?,
     val name: String?,
-    val place_id: Int?,
+    val place_id: Int,
     val privacy_level: String?,
     val slug: String?,
     val total_checkins: Int?,

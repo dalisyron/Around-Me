@@ -6,7 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.workshop.aroundme.R
 import com.workshop.aroundme.data.model.PlaceEntity
 
-class HomeAdapter(private val items: List<PlaceEntity>) : RecyclerView.Adapter<HomeViewHolder>() {
+class HomeAdapter(
+    private val items: List<PlaceEntity>,
+    private val onHomePlaceItemClickListener: OnHomePlaceItemClickListener
+) :
+    RecyclerView.Adapter<HomeViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_home_place_item, parent, false)
@@ -16,7 +20,7 @@ class HomeAdapter(private val items: List<PlaceEntity>) : RecyclerView.Adapter<H
     override fun getItemCount() = items.size
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(items[position], onHomePlaceItemClickListener)
     }
 
 }
