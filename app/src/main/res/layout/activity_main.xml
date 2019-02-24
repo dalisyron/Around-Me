@@ -1,36 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_height="match_parent"
-              android:layout_width="match_parent"
-              android:orientation="vertical">
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
 
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:layoutDirection="rtl"
-            android:gravity="center"
-            android:padding="16dp">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:focusable="true"
+                  android:focusableInTouchMode="true"
+                  android:layoutDirection="rtl"
+                  android:gravity="center"
+                  android:padding="16dp">
 
-        <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/searchQueryEditText"
-                android:text=""
-                android:hint="@string/search_for"
-                android:layout_weight="1"/>
+        <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:id="@+id/searchQueryEditText"
+                  android:text=""
+                  android:hint="جستجو برای..."
+                  android:layout_weight="1"
+        />
 
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:id="@+id/searchImageButton"
-                android:background="#ccc"
-                android:src="@drawable/ic_search"
-                android:layout_weight="0"
-                android:layout_marginRight="16dp"/>
+        <ImageButton android:layout_width="32dp" android:layout_height="32dp"
+                     android:id="@+id/searchImageButton"
+                     android:background="#ccc"
+                     android:src="@drawable/ic_search"
+                     android:layout_weight="0"
+                     android:layout_marginRight="16dp"
+        />
 
     </LinearLayout>
 

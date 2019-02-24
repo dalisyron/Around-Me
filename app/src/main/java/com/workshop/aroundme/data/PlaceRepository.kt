@@ -31,6 +31,16 @@ class PlaceRepository(
         }
     }
 
+    fun getSearchResultPlaces(searchQuery : String, success: (List<PlaceEntity>?) -> Unit) {
+        thread {
+            var result = placeRemoteDataSource.getFeaturedPlaces()?.map { placeDto ->
+                placeDto.toPlaceEntity()
+            }?.filter { it.name?.contains(searchQuery)?:false }
+            println(result)
+            success(result)
+        }
+    }
+
     @WorkerThread
     fun getStarredPlaces(success: (List<PlaceEntity>) -> Unit) {
         thread {

@@ -1,24 +1,26 @@
-package com.workshop.aroundme.app.ui.home
+package com.workshop.aroundme.app.ui.search
+
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
+import android.widget.AdapterView
 import android.widget.ProgressBar
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.workshop.aroundme.R
+import com.workshop.aroundme.app.Injector
 import com.workshop.aroundme.app.MainActivity.Companion.SEARCH_QUERY_KEY
-import com.workshop.aroundme.data.PlaceRepository
+import com.workshop.aroundme.app.ui.detail.DetailFragment
+import com.workshop.aroundme.app.ui.home.HomeAdapter
+import com.workshop.aroundme.app.ui.home.OnHomePlaceItemClickListener
 import com.workshop.aroundme.data.model.PlaceEntity
-import com.workshop.aroundme.remote.NetworkManager
-import com.workshop.aroundme.remote.datasource.PlaceDataSource
-import com.workshop.aroundme.remote.service.PlaceService
 
-class SearchResultsFragment : Fragment() {
+class SearchResultsFragment : Fragment(), OnSearchResultsPlaceItemClickListener {
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,9 +40,9 @@ class SearchResultsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val placeRepository = PlaceRepository(PlaceDataSource(PlaceService(NetworkManager())))
+        val placeRepository = Injector.providePlaceRepository(requireContext())
 
-        val searchQuery = arguments?.getString(SEARCH_QUERY_KEY) ?: ""
+        val searchQuery = arguments?.getString(SEARCH_QUERY_KEY) ?: "No Search Query"
 
         placeRepository.getSearchResultPlaces(searchQuery, ::onSearchResultsReady)
     }
@@ -50,7 +52,29 @@ class SearchResultsFragment : Fragment() {
             val recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerView)
             val progressBar = view?.findViewById<ProgressBar>(R.id.loadingBar)
             progressBar?.visibility = View.GONE
-            recyclerView?.adapter = HomeAdapter(list ?: listOf())
+            recyclerView?.adapter = SearchResultsAdapter(list ?: listOf(), this)
+        }
+    }
+
+    override fun onPlaceItemClicked(placeEntity: PlaceEntity) {
+        fragmentManager?.beginTransaction()
+            ?.replace(R.id.content_frame, DetailFragment.newInstance(placeEntity.slug))
+            ?.addToBackStack(null)
+            ?.commit()
+    }
+
+    override fun onItemStarred(placeEntity: PlaceEntity) {
+        val placeRepository = Injector.providePlaceRepository(requireContext())
+        placeRepository.starPlace(placeEntity)
+    }
+
+    companion object {
+        fun newInstance(searchQuery: String): SearchResultsFragment {
+            val instance = SearchResultsFragment()
+            instance.apply {
+                this.arguments = Bundle().apply { putString(SEARCH_QUERY_KEY, searchQuery) }
+            }
+            return instance
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.workshop.aroundme.app.ui.home
+package com.workshop.aroundme.app.ui.search
 
 import android.view.View
 import android.widget.ImageView
@@ -6,9 +6,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.workshop.aroundme.R
+import com.workshop.aroundme.app.ui.home.OnHomePlaceItemClickListener
 import com.workshop.aroundme.data.model.PlaceEntity
 
-class HomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class SearchResultViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
     private val nameTextView = itemView.findViewById<TextView>(R.id.name)
     private val addressTextView = itemView.findViewById<TextView>(R.id.address)
     private val likesTextView = itemView.findViewById<TextView>(R.id.likes)
@@ -18,7 +19,7 @@ class HomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(
         placeEntity: PlaceEntity,
-        onHomePlaceItemClickListener: OnHomePlaceItemClickListener
+        onSearchResultsPlaceItemClickListener: OnSearchResultsPlaceItemClickListener
     ) {
         nameTextView.text = placeEntity.name
         addressTextView.text = placeEntity.address
@@ -39,7 +40,7 @@ class HomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
 
         itemView.setOnClickListener {
-            onHomePlaceItemClickListener.onPlaceItemClicked(placeEntity)
+            onSearchResultsPlaceItemClickListener.onPlaceItemClicked(placeEntity)
         }
 
         favorite.setOnClickListener {
@@ -47,12 +48,12 @@ class HomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 favorite.setImageResource(R.drawable.ic_star_on)
                 placeEntity.isFavorite = true
 
-                onHomePlaceItemClickListener.onItemStarred(placeEntity)
+                onSearchResultsPlaceItemClickListener.onItemStarred(placeEntity)
             } else {
                 favorite.setImageResource(R.drawable.ic_star_off)
                 placeEntity.isFavorite = false
 
-                onHomePlaceItemClickListener.onItemStarred(placeEntity)
+                onSearchResultsPlaceItemClickListener.onItemStarred(placeEntity)
             }
         }
     }
