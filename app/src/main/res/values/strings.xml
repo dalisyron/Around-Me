@@ -14,4 +14,6 @@
     <string name="register">Create you account.</string>
     <string name="login_success">Welcome</string>
     <string name="login_error">Login Error</string>
+    <string name="register_success">Successfully registered</string>
+    <string name="register_error">Registration Error</string>
 </resources>

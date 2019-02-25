@@ -30,17 +30,18 @@ class UserRepository(private val localDataSource: UserLocalDataSource, private v
         }
     }
 
-    fun register(user: UserEntity, userRegisterItem: UserRegisterItem) {
+    fun register(user: UserEntity, userRegisterItem: UserRegisterItem, success : (UserEntity) -> Unit, failure : (String) -> Unit) {
         thread {
             val status = remoteDataSource.getRegisterStatus(userRegisterItem)
             if (status == UserRemoteDataSource.SUCCESS) {
                 //pass
+                success(user)
             } else {
-                when (status) {
-                    UserRemoteDataSource.INVALID_EMAIL -> throw Exception("Invalid Email")
-                    UserRemoteDataSource.DUPLICATE_USER -> throw Exception("A user with this email already exists.")
-                    else -> throw Exception("Register Error")
-                }
+                failure(when (status) {
+                    UserRemoteDataSource.INVALID_EMAIL -> "Invalid Email"
+                    UserRemoteDataSource.DUPLICATE_USER -> "A user with this email already exists."
+                    else -> "Register Error"
+                })
             }
         }
     }
