@@ -43,6 +43,10 @@ class RegisterFragment : Fragment() {
             val email = emailEditText.text.toString()
             userRepository.register(UserEntity(email), UserRegisterItem(user, email, password), ::onRegisterSuccessful, ::onRegisterFailed)
         }
+
+        view.findViewById<TextView>(R.id.haveAccount).setOnClickListener {
+            fragmentManager?.beginTransaction()?.replace(R.id.content_frame, LoginFragment())?.commit()
+        }
     }
 
     private fun onRegisterFailed(error : String) {

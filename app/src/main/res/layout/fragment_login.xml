@@ -102,6 +102,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
                 android:text="@string/register"/>
     </LinearLayout>
 
