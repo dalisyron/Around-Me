@@ -5,16 +5,22 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.workshop.aroundme.R
 import com.workshop.aroundme.app.Injector
 import com.workshop.aroundme.app.ui.home.HomeFragment
+import com.workshop.aroundme.data.UserRepository
 import com.workshop.aroundme.data.model.UserEntity
+import com.workshop.aroundme.remote.service.UserLoginItem
+import kotlinx.android.synthetic.main.fragment_login.*
+import java.lang.Exception
 
 class LoginFragment : Fragment() {
 
@@ -40,33 +46,39 @@ class LoginFragment : Fragment() {
         }
         view.findViewById<View>(R.id.login).setOnClickListener {
 
-            if (usernameEditText.text.isNotEmpty() && usernameEditText.text.toString() == "reza"
-                && passwordEditText.text.isNotEmpty() && passwordEditText.text.toString() == "1234"
-            ) {
+            val userRepository = Injector.provideUserRepository(view.context)
+            val user = usernameEditText.text.toString()
+            val password = passwordEditText.text.toString()
+            val rememberFlag = view.findViewById<CheckBox>(R.id.rememberCheckBox).isChecked
 
-                val userRepository = Injector.provideUserRepository(view.context)
-                val user = UserEntity(usernameEditText.text.toString())
-                val rememberFlag = view.findViewById<CheckBox>(R.id.rememberCheckBox).isChecked
+            userRepository.login(UserEntity(user), UserLoginItem(user, password), rememberFlag, ::onLoginSuccessful, ::onLoginFailed)
 
-                if (rememberFlag) {
-                    userRepository.login(user)
+        }
+    }
+
+    private fun onLoginFailed(error : String) {
+        activity?.runOnUiThread {
+            AlertDialog.Builder(requireContext())
+                .setTitle(getString(R.string.login_error))
+                .setMessage(error)
+                .setPositiveButton(getString(R.string.ok)) { dialogInterface: DialogInterface, i: Int ->
+                    dialogInterface.dismiss()
                 }
+                .create()
+                .show()
+        }
+    }
+    private fun onLoginSuccessful(userEntity: UserEntity) {
+        activity?.runOnUiThread {
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.login_success) + " " + userEntity.userName,
+                Toast.LENGTH_LONG
+            ).show()
 
-                fragmentManager?.beginTransaction()
-                    ?.replace(R.id.content_frame, HomeFragment())
-                    ?.commit()
-
-            } else {
-                AlertDialog.Builder(view.context)
-                    .setTitle(getString(R.string.error))
-                    .setMessage(getString(R.string.invalid_user_or_pass))
-                    .setPositiveButton(getString(R.string.ok)) { dialogInterface: DialogInterface, i: Int ->
-                        dialogInterface.dismiss()
-                    }
-                    .create()
-                    .show()
-
-            }
+            fragmentManager?.beginTransaction()
+                ?.replace(R.id.content_frame, HomeFragment())
+                ?.commit()
         }
     }
 

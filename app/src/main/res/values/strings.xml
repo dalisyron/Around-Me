@@ -12,4 +12,6 @@
     <string name="ok">Ok</string>
     <string name="newhere">First time here?</string>
     <string name="register">Create you account.</string>
+    <string name="login_success">Welcome</string>
+    <string name="login_error">Login Error</string>
 </resources>

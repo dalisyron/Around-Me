@@ -10,7 +10,9 @@ import com.workshop.aroundme.local.datasource.PlaceLocalDataSource
 import com.workshop.aroundme.local.datasource.UserLocalDataSource
 import com.workshop.aroundme.remote.NetworkManager
 import com.workshop.aroundme.remote.datasource.PlaceRemoteDataSource
+import com.workshop.aroundme.remote.datasource.UserRemoteDataSource
 import com.workshop.aroundme.remote.service.PlaceService
+import com.workshop.aroundme.remote.service.UserService
 
 object Injector {
 
@@ -35,6 +37,11 @@ object Injector {
         return UserRepository(
             UserLocalDataSource(
                 provideDefaultSharedPref(context)
+            ),
+            UserRemoteDataSource(
+                UserService(
+                    NetworkManager()
+                )
             )
         )
     }
