@@ -18,7 +18,7 @@
                 android:id="@+id/welcomeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Register"
+                android:text="@string/register_title"
                 android:textSize="30sp"
                 android:textStyle="bold"
         />
@@ -27,14 +27,14 @@
                 android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Username"
+                android:hint="@string/username"
         />
 
         <EditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email"
+                android:hint="@string/email"
                 android:inputType="textEmailAddress"
         />
 
@@ -42,7 +42,7 @@
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
+                android:hint="@string/password"
                 android:inputType="textPassword"
                 android:layout_marginBottom="22dp"
         />
@@ -58,14 +58,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Register"/>
+                    android:text="@string/registerTitle"/>
 
             <TextView
                     android:id="@+id/haveAccount"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Already have an account?"
+                    android:text="@string/already_have_an_account"
                     android:textStyle="bold"
                     android:gravity="center"
                     android:clickable="true"

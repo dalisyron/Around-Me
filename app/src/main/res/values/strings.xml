@@ -5,8 +5,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="starred_places">Starred Places</string>
     <string name="user_name">User name</string>
-    <string name="password">Password</string>
-    <string name="login">Login</string>
     <string name="error">Error</string>
     <string name="invalid_user_or_pass">Invalid username or password</string>
     <string name="ok">Ok</string>
@@ -16,4 +14,15 @@
     <string name="login_error">Login Error</string>
     <string name="register_success">Successfully registered</string>
     <string name="register_error">Registration Error</string>
+    <string name="welcome">Welcome</string>
+    <string name="register_title">Register</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="registerTitle">Register</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="remeber_me">Remeber me</string>
+    <string name="login">Login</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="login_to_get_started">Login to get started!</string>
 </resources>

@@ -18,7 +18,7 @@
                 android:id="@+id/welcomeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Welcome"
+                android:text="@string/welcome"
                 android:textSize="30sp"
                 android:textStyle="bold"
         />
@@ -27,7 +27,7 @@
                 android:id="@+id/loginHelpTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Login to get started!"
+                android:text="@string/login_to_get_started"
                 android:layout_marginBottom="16dp"
         />
 
@@ -51,7 +51,7 @@
                 android:id="@+id/rememberCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Remeber me"
+                android:text="@string/remeber_me"
                 android:layout_marginBottom="32dp"
         />
 
@@ -66,14 +66,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Login"/>
+                    android:text="@string/login"/>
 
             <TextView
                     android:id="@+id/forgotpwTextView"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Forgot password?"
+                    android:text="@string/forgot_password"
                     android:textStyle="bold"
                     android:gravity="center"
                     android:clickable="true"
